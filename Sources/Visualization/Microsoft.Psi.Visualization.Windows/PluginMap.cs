@@ -114,6 +114,22 @@ namespace Microsoft.Psi.Visualization
                 }
             }
 
+<<<<<<< Updated upstream
+=======
+            // TODO: Voir pour une solution plus propre ?
+            // positionData
+            this.additionalTypeMappings.Add("PipelineRejeuxDonnees.PositionData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", typeof(PositionData));
+
+            // rotationData
+            this.additionalTypeMappings.Add("PipelineRejeuxDonnees.RotationData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", typeof(RotationData));
+
+            // playersData
+            this.additionalTypeMappings.Add("DataAnalysis.PlayersData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", typeof(PlayersData));
+            this.additionalTypeMappings.Add("PipelineRejeuxDonnees.PlayersData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", typeof(PlayersData));
+
+            this.additionalTypeMappings.Add("System.Collections.Generic.List`1[[DataAnalysis.PlayersData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", typeof(List<PlayersData>));
+
+>>>>>>> Stashed changes
             this.IsInitialized = true;
         }
 

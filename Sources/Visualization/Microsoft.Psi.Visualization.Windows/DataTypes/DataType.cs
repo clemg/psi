@@ -363,6 +363,21 @@ namespace PipelineRejeuxDonnees
         public Vector3 lHandPosv;
         public Vector3 rHandPosv;
 
+        public float X
+        {
+            get
+            {
+                return this.headPosv.X * 100 + 300;
+            }
+        }
+        public float Y
+        {
+            get
+            {
+                return this.headPosv.Y * 100 + 100;
+            }
+        }
+
         public PositionData(string value)
         {
             var parts = value.Split(';');
