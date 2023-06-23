@@ -208,6 +208,7 @@
     <None Remove="Views\TimelineVisualizationPanelView.xaml" />
     <None Remove="Views\VisualizationContainerView.xaml" />
     <None Remove="Views\Visuals2D\AudioVisualizationObjectView.xaml" />
+    <None Remove="Views\Visuals2D\background.jpeg" />
     <None Remove="Views\Visuals2D\DepthImageVisualizationObjectView.xaml" />
     <None Remove="Views\Visuals2D\DiagnosticsVisualization\PipelineDiagnosticsVisualizationObjectView.xaml" />
     <None Remove="Views\Visuals2D\IFormattableVisualizationObjectView.xaml" />
@@ -526,5 +527,9 @@
     <Resource Include="Icons\zoom-to-session.png" />
     <Resource Include="Icons\zoom-to-stream.png" />
     <Resource Include="Icons\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

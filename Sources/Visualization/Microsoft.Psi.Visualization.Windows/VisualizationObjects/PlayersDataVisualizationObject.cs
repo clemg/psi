@@ -33,6 +33,7 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
     {
         private bool showPlayersName = true;
         private bool showPlayersObjectView = true;
+        private string sceneImage = "";
 
         /// <inheritdoc/>
         [IgnoreDataMember]
@@ -62,7 +63,17 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
 
             base.OnPropertyChanged(sender, e);
         }
-          
+
+        [DataMember]
+        public string SceneImage { 
+            get => sceneImage;
+            set {
+                sceneImage = value;
+                this.RaisePropertyChanged(nameof(this.SceneImage));
+            }
+        }
+
+
         public List<PlayersData> Players
         {
             get 
