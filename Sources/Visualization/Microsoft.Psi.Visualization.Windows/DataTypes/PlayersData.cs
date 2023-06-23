@@ -14,11 +14,6 @@ public class PlayersData
     public bool vad;
     public JVAData jvaEvent;
 
-    public bool VAD
-    {
-        get { return this.vad; }
-    }
-
     public PositionData Position
     {
         get { return this.position; }
@@ -27,6 +22,16 @@ public class PlayersData
     public RotationData Rotation
     {
         get { return this.rotation; }
+    }
+
+    public bool VAD
+    {
+        get { return this.vad; }
+    }
+
+    public JVAData JVA
+    {
+        get => this.jvaEvent;
     }
 
     public PlayersData(PositionData pos, RotationData rot, bool v, JVAData jva)

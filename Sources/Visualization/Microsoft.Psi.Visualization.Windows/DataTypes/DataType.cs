@@ -13,6 +13,8 @@ namespace PipelineRejeuxDonnees
     using System.Threading.Tasks;
     using System.Runtime.CompilerServices;
     using Microsoft.Psi.Components;
+    using HelixToolkit.Wpf;
+    using System.Security.Permissions;
 
     [System.Serializable]
     public class DatainRT
@@ -176,6 +178,11 @@ namespace PipelineRejeuxDonnees
             objectID = id;
             initiator = init;
             responder = resp;
+        }
+
+        public string objectName
+        {
+            get => this.objectID;
         }
     }
     [System.Serializable]
@@ -450,7 +457,17 @@ namespace PipelineRejeuxDonnees
         }
         public float Y
         {
-            get { return headRotv.Y * 180 / (float) Math.PI;  }
+            get {
+                float angleRadians = (float)Math.Atan2(headRotv.Z, headRotv.X);
+                float angleDegrees = angleRadians * (180f / (float)Math.PI);
+
+                if (angleDegrees < 0)
+                {
+                    angleDegrees += 180f;
+                }
+
+                return angleDegrees;
+            }
         }
 
         public RotationData(string value)
