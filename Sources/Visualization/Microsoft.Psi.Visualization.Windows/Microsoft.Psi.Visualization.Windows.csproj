@@ -39,6 +39,11 @@
     <DefineConstants>TRACE;DEBUG;NET47</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="Resources\**" />
+    <EmbeddedResource Remove="Resources\**" />
+    <None Remove="Resources\**" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Icons\2d.png" />
     <None Remove="Icons\3d.png" />
     <None Remove="Icons\annotation-unbound.png" />
@@ -530,6 +535,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="NewFolder\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>

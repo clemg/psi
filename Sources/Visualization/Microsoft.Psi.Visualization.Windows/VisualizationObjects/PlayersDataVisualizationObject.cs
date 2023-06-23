@@ -34,6 +34,7 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
         private bool showPlayersName = true;
         private bool showPlayersObjectView = true;
         private string sceneImage = "";
+        private RotationAngleEnum currentRotation = RotationAngleEnum.Angle0;
 
         /// <inheritdoc/>
         [IgnoreDataMember]
@@ -65,6 +66,8 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
         }
 
         [DataMember]
+        [DisplayName("Scene Image")]
+        [Description("Display the selected image to the background to match your scene")]
         public string SceneImage { 
             get => sceneImage;
             set {
@@ -114,7 +117,14 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
         [DataMember]
         [DisplayName("Rotation angle")]
         [Description("Select the rotation angle")]
-        public RotationAngleEnum RotationAngle { get; set; }
+        public RotationAngleEnum RotationAngle {
+            get => currentRotation;
+            set
+            {
+                currentRotation = value;
+                this.RaisePropertyChanged(nameof(RotationAngle));
+            }
+        }
 
         public enum RotationAngleEnum
         {
