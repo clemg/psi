@@ -18,9 +18,15 @@ public class PlayersData
     {
         get { return this.vad; }
     }
+
     public PositionData Position
     {
         get { return this.position; }
+    }
+
+    public RotationData Rotation
+    {
+        get { return this.rotation; }
     }
 
     public PlayersData(PositionData pos, RotationData rot, bool v, JVAData jva)

@@ -15,6 +15,7 @@ namespace Microsoft.Psi.Visualization
     using Microsoft.Psi.Visualization.Summarizers;
     using Microsoft.Psi.Visualization.VisualizationObjects;
     using Microsoft.Psi.Visualization.Windows;
+    using PipelineRejeuxDonnees;
 
     /// <summary>
     /// Represents mappings for known visualizers, adapters, summarizers and stream readers.
@@ -114,8 +115,6 @@ namespace Microsoft.Psi.Visualization
                 }
             }
 
-<<<<<<< Updated upstream
-=======
             // TODO: Voir pour une solution plus propre ?
             // positionData
             this.additionalTypeMappings.Add("PipelineRejeuxDonnees.PositionData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null", typeof(PositionData));
@@ -129,7 +128,6 @@ namespace Microsoft.Psi.Visualization
 
             this.additionalTypeMappings.Add("System.Collections.Generic.List`1[[DataAnalysis.PlayersData, SynchroSession, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089", typeof(List<PlayersData>));
 
->>>>>>> Stashed changes
             this.IsInitialized = true;
         }
 

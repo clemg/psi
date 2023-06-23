@@ -12,32 +12,42 @@
     d:DesignHeight="300" 
     d:DesignWidth="300">
 
-  <Border Grid.Row="1" Padding="5,2,0,0">
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-
-      <Border Grid.Row="0" Padding="5,2,0,0">
-		  <ItemsControl ItemsSource="{Binding Players}">
-			  <ItemsControl.ItemTemplate>
-				  <DataTemplate>
-					  <Ellipse Width="2" Height="2" Fill="#FF0000">
-						  <Ellipse.RenderTransform>
-							  <TransformGroup>
-								  <ScaleTransform ScaleX="10" ScaleY="10"/>
-								  <TranslateTransform X="{Binding Path=Position.X, Mode=OneWay}" Y="{Binding Path=Position.Y, Mode=OneWay}" />
-							  </TransformGroup>
-						  </Ellipse.RenderTransform>
-					  </Ellipse>
-				  </DataTemplate>
-			  </ItemsControl.ItemTemplate>
-		  </ItemsControl>
-      </Border>
+	<Border Grid.Row="1" Padding="5,2,0,0">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 		
-
-      <Border Grid.Row="0" Padding="5,2,0,0"></Border>
+		<ItemsControl ItemsSource="{Binding Players}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Canvas>
+                        <Ellipse Width="20" Height="20" Fill="#F26555">
+                            <Ellipse.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform X="{Binding Path=Position.RelativeX, Mode=OneWay}" Y="{Binding Path=Position.RelativeY, Mode=OneWay}" />
+                                </TransformGroup>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
+					  
+						
+						<Polygon Points="10,-5 20,-10 20,10 10,5">  
+                            <Polygon.Fill>  
+                                <SolidColorBrush Color="White" Opacity="0.3"/>  
+                            </Polygon.Fill>  
+						
+						    <Polygon.RenderTransform>
+                                <TransformGroup>
+                                    <RotateTransform Angle="{Binding Path=Rotation.Y, Mode=OneWay}" CenterX="0" CenterY="0" />
+                                    <TranslateTransform X="{Binding Path=Position.X, Mode=OneWay}" Y="{Binding Path=Position.Y, Mode=OneWay}" />
+                                </TransformGroup>
+                            </Polygon.RenderTransform>
+                        </Polygon>
+                    </Canvas>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
   </Border>
 </vv:VisualizationObjectView>

@@ -15,8 +15,6 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Media;
     using System.Windows.Media.Imaging;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.Psi.Visualization.Data;
@@ -56,7 +54,7 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
 
             base.OnPropertyChanged(sender, e);
         }
-
+          
         public List<PlayersData> Players
         {
             get 

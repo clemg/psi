@@ -367,14 +367,31 @@ namespace PipelineRejeuxDonnees
         {
             get
             {
-                return this.headPosv.X * 100 + 300;
+                return this.headPosv.X * 200 + 700;
             }
         }
+        
+        public float RelativeX
+        {
+            get
+            {
+                return this.X - 10;
+            }
+        }
+
         public float Y
         {
             get
             {
-                return this.headPosv.Y * 100 + 100;
+                return this.headPosv.Y * 200 - 150;
+            }
+        }
+
+        public float RelativeY
+        {
+            get
+            {
+                return this.Y - 10;
             }
         }
 
@@ -426,6 +443,15 @@ namespace PipelineRejeuxDonnees
         public Vector3 headRotv;
         public Vector3 lHandRotv;
         public Vector3 rHandRotv;
+
+        public float Z
+        {
+            get { return headRotv.Z * 180 / (float)Math.PI; }
+        }
+        public float Y
+        {
+            get { return headRotv.Y * 180 / (float) Math.PI;  }
+        }
 
         public RotationData(string value)
         {
