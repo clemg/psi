@@ -23,14 +23,38 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Canvas>
-                        <Ellipse Width="20" Height="20" Fill="#F26555">
-                            <Ellipse.RenderTransform>
+						<Border BorderBrush="{x:Null}" Height="24" Width="24" Margin="-12,0,0,0">
+							<TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="P{0}">
+                                        <Binding Path="(ItemsControl.AlternationIndex)" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type ContentPresenter}}" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+						
+						    <Border.RenderTransform>
                                 <TransformGroup>
-                                    <TranslateTransform X="{Binding Path=Position.RelativeX, Mode=OneWay}" Y="{Binding Path=Position.RelativeY, Mode=OneWay}" />
+                                    <TranslateTransform X="{Binding Path=Position.X, Mode=OneWay}" Y="{Binding Path=Position.Y, Mode=OneWay}" />
+                                </TransformGroup>
+                            </Border.RenderTransform>
+						</Border>
+                        
+						
+                        <Ellipse Width="26" Height="26" Stroke="#03FC94" StrokeThickness="2" Margin="-13" Visibility="{Binding VAD, Converter={StaticResource BooleanToVisibilityConverter}}">
+							 <Ellipse.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform X="{Binding Path=Position.X, Mode=OneWay}" Y="{Binding Path=Position.Y, Mode=OneWay}" />
                                 </TransformGroup>
                             </Ellipse.RenderTransform>
                         </Ellipse>
-					  
+							
+                        <Ellipse Width="20" Height="20" Fill="#F26555" Margin="-10">
+                            <Ellipse.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform X="{Binding Path=Position.X, Mode=OneWay}" Y="{Binding Path=Position.Y, Mode=OneWay}" />
+                                </TransformGroup>
+                            </Ellipse.RenderTransform>
+                        </Ellipse>
 						
 						<Polygon Points="10,-5 20,-10 20,10 10,5">  
                             <Polygon.Fill>  
@@ -47,6 +71,9 @@
                     </Canvas>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
+            <ItemsControl.AlternationCount>
+                <Binding Path="Items.Count" RelativeSource="{RelativeSource Self}" />
+            </ItemsControl.AlternationCount>
         </ItemsControl>
     </Grid>
   </Border>
