@@ -13,6 +13,8 @@ namespace PipelineRejeuxDonnees
     using System.Threading.Tasks;
     using System.Runtime.CompilerServices;
     using Microsoft.Psi.Components;
+    using HelixToolkit.Wpf;
+    using System.Security.Permissions;
 
     [System.Serializable]
     public class DatainRT
@@ -176,6 +178,11 @@ namespace PipelineRejeuxDonnees
             objectID = id;
             initiator = init;
             responder = resp;
+        }
+
+        public string objectName
+        {
+            get => this.objectID;
         }
     }
     [System.Serializable]
@@ -363,6 +370,38 @@ namespace PipelineRejeuxDonnees
         public Vector3 lHandPosv;
         public Vector3 rHandPosv;
 
+        public float X
+        {
+            get
+            {
+                return this.headPosv.X * 200 + 700;
+            }
+        }
+        
+        public float RelativeX
+        {
+            get
+            {
+                return this.X - 10;
+            }
+        }
+
+        public float Y
+        {
+            get
+            {
+                return this.headPosv.Y * 200 - 150;
+            }
+        }
+
+        public float RelativeY
+        {
+            get
+            {
+                return this.Y - 10;
+            }
+        }
+
         public PositionData(string value)
         {
             var parts = value.Split(';');
@@ -411,6 +450,25 @@ namespace PipelineRejeuxDonnees
         public Vector3 headRotv;
         public Vector3 lHandRotv;
         public Vector3 rHandRotv;
+
+        public float Z
+        {
+            get { return headRotv.Z * 180 / (float)Math.PI; }
+        }
+        public float Y
+        {
+            get {
+                float angleRadians = (float)Math.Atan2(headRotv.Z, headRotv.X);
+                float angleDegrees = angleRadians * (180f / (float)Math.PI);
+
+                if (angleDegrees < 0)
+                {
+                    angleDegrees += 180f;
+                }
+
+                return angleDegrees;
+            }
+        }
 
         public RotationData(string value)
         {

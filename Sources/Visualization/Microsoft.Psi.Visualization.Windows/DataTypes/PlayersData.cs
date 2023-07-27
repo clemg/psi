@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT license.
 
+using System.Numerics;
 using PipelineRejeuxDonnees;
 
 #pragma warning disable
@@ -8,22 +9,36 @@ using PipelineRejeuxDonnees;
 [System.Serializable]
 public class PlayersData
 {
-    public PositionData position1;
-    public PositionData position2;
-    public RotationData rotation1;
-    public RotationData rotation2;
-    public bool vad1;
-    public bool vad2;
+    public PositionData position;
+    public RotationData rotation;
+    public bool vad;
     public JVAData jvaEvent;
 
-    public PlayersData(PositionData pos1, PositionData pos2, RotationData rot1, RotationData rot2, bool v1, bool v2, JVAData jva)
+    public PositionData Position
     {
-        position1 = pos1;
-        position2 = pos2;
-        rotation1 = rot1;
-        rotation2 = rot2;
-        vad1 = v1;
-        vad2 = v2;
+        get { return this.position; }
+    }
+
+    public RotationData Rotation
+    {
+        get { return this.rotation; }
+    }
+
+    public bool VAD
+    {
+        get { return this.vad; }
+    }
+
+    public JVAData JVA
+    {
+        get => this.jvaEvent;
+    }
+
+    public PlayersData(PositionData pos, RotationData rot, bool v, JVAData jva)
+    {
+        position = pos;
+        rotation = rot;
+        vad = v;
         jvaEvent = jva;
     }
 }

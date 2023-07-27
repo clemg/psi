@@ -15,6 +15,7 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
     using Microsoft.CodeAnalysis.CSharp.Syntax;
     using Microsoft.Psi.Visualization.Data;
@@ -28,8 +29,13 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
     /// </summary>
     [VisualizationObject("PlayersData")]
     [VisualizationPanelType(VisualizationPanelType.Canvas)]
-    public class PlayersDataVisualizationObject : StreamValueVisualizationObject<PlayersData>, INotifyPropertyChanged
+    public class PlayersDataVisualizationObject : StreamValueVisualizationObject<List<PlayersData>>, INotifyPropertyChanged
     {
+        private bool showPlayersName = true;
+        private bool showPlayersObjectView = true;
+        private string sceneImage = "";
+        private RotationAngleEnum currentRotation = RotationAngleEnum.Angle0;
+
         /// <inheritdoc/>
         [IgnoreDataMember]
         public override DataTemplate DefaultViewTemplate => XamlHelper.CreateTemplate(this.GetType(), typeof(PlayersDataVisualizationObjectView));
@@ -41,9 +47,9 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
 
             if (e.PropertyName == nameof(this.CurrentValue))
             {
-                this.RaisePropertyChanging(nameof(this.GetPlayersData));
-                this.RaisePropertyChanging(nameof(this.GetPlayersDataAsString));
-                this.RaisePropertyChanging(nameof(this.GetDefString));
+                this.RaisePropertyChanging(nameof(this.Players));
+                this.RaisePropertyChanging(nameof(this.ShowPlayersName));
+                this.RaisePropertyChanging(nameof(this.ShowPlayersObjectView));
             }
         }
 
@@ -51,139 +57,88 @@ namespace Microsoft.Psi.Visualization.VisualizationObjects
         {
             if (e.PropertyName == nameof(this.CurrentValue))
             {
-                this.RaisePropertyChanged(nameof(this.GetPlayersData));
-                this.RaisePropertyChanged(nameof(this.GetPlayersDataAsString));
-                this.RaisePropertyChanged(nameof(this.GetDefString));
+                this.RaisePropertyChanged(nameof(this.Players));
+                this.RaisePropertyChanged(nameof(this.ShowPlayersName));
+                this.RaisePropertyChanged(nameof(this.ShowPlayersObjectView));
             }
 
             base.OnPropertyChanged(sender, e);
         }
 
-        /// <summary>
-        /// Returns the PlayersData value at time t.
-        /// </summary>
-        /// <returns>
-        /// PlayersData instance.
-        /// </returns>
-        public PlayersData GetPlayersData()
-        {
-            if (this.CurrentValue.HasValue)
-            {
-                return this.CurrentValue.Value.Data;
-            }
-            else
-            {
-;               PlayersData placeholder = new PlayersData(
-                    new PipelineRejeuxDonnees.PositionData(""),
-                    new PipelineRejeuxDonnees.PositionData(""),
-                    new PipelineRejeuxDonnees.RotationData(""),
-                    new PipelineRejeuxDonnees.RotationData(""),
-                    false,
-                    false,
-                    new PipelineRejeuxDonnees.JVAData(
-                        new DateTime(),
-                        new DateTime(),
-                        new DateTime(),
-                        new DateTime(),
-                        new TimeSpan(),
-                        "",
-                        0,
-                        0
-                    )
-                );
-                return placeholder;
+        [DataMember]
+        [DisplayName("Scene Image")]
+        [Description("Display the selected image to the background to match your scene")]
+        public string SceneImage { 
+            get => sceneImage;
+            set {
+                sceneImage = value;
+                this.RaisePropertyChanged(nameof(this.SceneImage));
             }
         }
 
-        public virtual PipelineRejeuxDonnees.PositionData PositionPlayer1
-        {
-            get
-            {
-                return this.GetPlayersData().position1;
-            }
-        }
 
-        public virtual PipelineRejeuxDonnees.PositionData PositionPlayer2
+        public List<PlayersData> Players
         {
-            get
+            get 
             {
-                return this.GetPlayersData().position2;
-            }
-        }
-
-        public virtual PipelineRejeuxDonnees.RotationData RotationPlayer1
-        {
-            get
-            {
-                return this.GetPlayersData().rotation1;
-            }
-        }
-        public virtual PipelineRejeuxDonnees.RotationData RotationPlayer2
-        {
-            get
-            {
-                return this.GetPlayersData().rotation2;
-            }
-        }
-
-        public virtual bool VadPlayer1
-        {
-            get
-            {
-                return this.GetPlayersData().vad1;
-            }
-        }
-
-        public virtual bool VadPlayer2
-        {
-            get
-            {
-                return this.GetPlayersData().vad2;
-            }
-        }
-
-        public virtual PipelineRejeuxDonnees.JVAData JVAData
-        {
-            get
-            {
-                return this.GetPlayersData().jvaEvent;
-            }
-        }
-
-        /// <summary>
-        ///  Returns the PlayersData value at time t as a string.
-        /// </summary>
-        /// <returns>
-        /// String.
-        /// </returns>
-        public virtual string GetPlayersDataAsString
-        {
-            get
-            {
-                string positions = this.PositionPlayer1.headPos.ToString() + "/" + this.PositionPlayer2.headPos.ToString();
-                string rotations = this.RotationPlayer1.headRot.ToString() + "/" + this.RotationPlayer2.headRot.ToString();
-                string vads = this.VadPlayer1.ToString() + "/" + this.VadPlayer2.ToString();
-
-                string res = positions + "\n" + rotations + "\n" + vads;
-
-                PipelineRejeuxDonnees.JVAData JVAData = this.JVAData;
-                if (JVAData != null)
+                if (this.CurrentValue.HasValue)
                 {
-                    res += "\n" + JVAData.responder.ToString() + " " + JVAData.objectID.ToString();
+                    return this.CurrentValue.Value.Data;
                 }
-
-
-                return res;
+                return new List<PlayersData>();
             }
         }
-
 
         [DataMember]
-        public string GetDefString
+        [DisplayName("Show players name")]
+        [Description("Show the players names right under their positions")]
+        public bool ShowPlayersName
         {
-            get {
-                return "def string tmtc";
+            get { return this.showPlayersName; }
+            set {
+                this.showPlayersName = value;
+                this.RaisePropertyChanged(nameof(ShowPlayersName));
             }
+        }
+
+        [DataMember]
+        [DisplayName("Show players object view")]
+        [Description("Show the object a player is looking at right under their positions")]
+        public bool ShowPlayersObjectView
+        {
+            get { return this.showPlayersObjectView; }
+            set
+            {
+                this.showPlayersObjectView = value;
+                this.RaisePropertyChanged(nameof(ShowPlayersObjectView));
+            }
+        }
+
+        [DataMember]
+        [DisplayName("Rotation angle")]
+        [Description("Select the rotation angle")]
+        public RotationAngleEnum RotationAngle {
+            get => currentRotation;
+            set
+            {
+                currentRotation = value;
+                this.RaisePropertyChanged(nameof(RotationAngle));
+            }
+        }
+
+        public enum RotationAngleEnum
+        {
+            [Description("0°")]
+            Angle0 = 0,
+
+            [Description("90°")]
+            Angle90 = 90,
+
+            [Description("180°")]
+            Angle180 = 180,
+
+            [Description("270°")]
+            Angle270 = 270
         }
     }
 }
